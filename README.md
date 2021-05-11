@@ -1,2 +1,2 @@
-# Github-Utils
-A discord bot that connects with the GitHub API to provide information about repositories, users and more.
+# Eyden
+A discord bot that connects with many APIs to provide a ton of information, images and other things.
