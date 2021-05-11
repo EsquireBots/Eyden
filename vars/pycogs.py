@@ -1,2 +1,4 @@
 extensions = ["jishaku",
-              "cogs.generic"]
+              "cogs.generic",
+              "cogs.animals",
+              "cogs.anime"]
