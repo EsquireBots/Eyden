@@ -4,15 +4,15 @@ from vars import pycogs, tokens
 
 from discord.ext import commands
 
+
 bot = commands.Bot(
-    command_prefix=commands.when_mentioned_or('gh!'),
+    command_prefix=commands.when_mentioned_or('e?'),
     case_insensitive=True,
     max_messages=10000,
     intents=discord.Intents.all(),
     status=discord.Status.dnd,
-    activity=discord.Activity(type=discord.ActivityType.playing, name='with github'),
-    description="A discord bot that connects with the GitHub API " \
-                "to provide information about repositories, users and more."
+    activity=discord.Activity(type=discord.ActivityType.playing, name='with APIs'),
+    description="A discord bot that connects with many APIs to provide a ton of information, images and other things."
 )
 
 @commands.Cog.listener()
