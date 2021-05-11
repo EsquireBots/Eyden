@@ -1,0 +1,2 @@
+extensions = ["jishaku",
+              "cogs.generic"]
