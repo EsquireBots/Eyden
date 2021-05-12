@@ -1,0 +1,12 @@
+certifi==2020.12.5
+Counter==1.0.0
+discord-ext-menus @ git+https://github.com/Rapptz/discord-ext-menus@309c70222eec33acacb8c21bbb0fbe9bc57de661
+discord-py-slash-command==1.1.2
+discordlists.py==1.1.1
+dsdev-utils==1.0.4
+idna==2.10
+Menus==0.2.0
+psutil==5.8.0
+requests==2.25.1
+statcord.py==3.1.0
+urllib3==1.26.4
