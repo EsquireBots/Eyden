@@ -11,7 +11,7 @@ bot = commands.AutoShardedBot(
     max_messages=5000,
     status=discord.Status.online,
     activity=discord.Activity(type=discord.ActivityType.playing, name=f'With my maker'),
-    description=f"I have no clear, main purpose just yet."
+    description=f"My main purpose is unknown."
 )
 
 for extension in config.extensions:
