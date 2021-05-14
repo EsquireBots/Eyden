@@ -28,6 +28,7 @@ class media(commands.Cog, name="Media"):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def dog(self, ctx):
+        """ Get a random dog """
         rdmd = random.choice(['http://shibe.online/api/shibes?count=1', 'https://dog.ceo/api/breeds/image/random', 'https://random.dog/woof.json', 'https://some-random-api.ml/img/dog'])
         session = aiohttp.ClientSession()
         r = await session.get(rdmd)
@@ -60,6 +61,7 @@ class media(commands.Cog, name="Media"):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def cat(self, ctx):
+        """ Get a random cat """
         rdmc = random.choice(['https://thatcopy.pw/catapi/rest/', 'https://aws.random.cat/meow', 'http://shibe.online/api/cats?count=1', 'https://some-random-api.ml/img/cat'])
         session = aiohttp.ClientSession()
         r = await session.get(rdmc)
