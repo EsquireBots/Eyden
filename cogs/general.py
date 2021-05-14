@@ -72,6 +72,17 @@ Users: **{sum(x.member_count for x in self.bot.guilds)}**
         e.description = f"{emotes.discovery} [Admin invite link]({links.Invite_admin})"
         await ctx.send(embed=e)
 
+    @commands.command()
+    async def privacy(self, ctx):
+        """ See our privacy policy """
+        Flitz = await self.bot.fetch_user(809057677716094997)
+
+        e = discord.Embed(color=discord.Color.green())
+        e.description = f"Eyden does not gather any information on it's users. It may only log new guilds joined, traceback errors and cooldowns." \
+                         "This privacy policy will be updated accordingly to any future data we may collect.\n\n" \
+                         f"For any questions, you can contact {str(Flitz)} on discord or send an email to joshuaslui0203@gmail.com"
+        await ctx.send(embed=e)
+
 
 def setup(bot):
     bot.add_cog(general(bot))
