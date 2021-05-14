@@ -67,7 +67,7 @@ class media(commands.Cog, name="Media"):
 
         else:
             await session.close()
-            await ctx.send('Something went wrong. Please try again later.')
+            await ctx.send('Something went wrong, please try again later.')
 
         await session.close()
         await ctx.send(embed=e)
