@@ -19,8 +19,17 @@ class media(commands.Cog, name="Media"):
         js = await r.json()
 
         e = discord.Embed(color=discord.Color.orange())
-        e.set_image(url=js['image'] if rdmf == 'https://randomfox.ca/floof/' else js['link'])
-        e.set_footer(text='Powered by randomfox.ca' if rdmf == 'https://randomfox.ca/floof/' else 'Powered by some-random-api.ml')
+        if rdmf == 'https://randomfox.ca/floof/':
+            e.set_image(url=js['image'])
+            e.set_footer(text="Powered by randomfox.ca")
+
+        elif rdmf == 'https://some-random-api.ml/img/fox':
+            e.set_image(url=js['link'])
+            e.set_footer(text="Powered by some-random-api.ml")
+
+        else:
+            await session.close()
+            await ctx.send('Something went wrong, please try again later.')
 
         await session.close()
         await ctx.send(embed=e)
