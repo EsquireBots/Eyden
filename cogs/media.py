@@ -34,8 +34,25 @@ class media(commands.Cog, name="Media"):
         js = await r.json()
 
         e = discord.Embed(color=discord.Color.random())
-        e.set_image(url=js[0] if rdmd == 'http://shibe.online/api/shibes?count=1' else js['message'] if rdmd == 'https://dog.ceo/api/breeds/image/random' else js['url'] if rdmd == 'https://random.dog/woof.json' else js['link'])
-        e.set_footer(text='Powered by shibe.online' if rdmd == 'http://shibe.online/api/shibes?count=1' else 'Powered by dog.ceo' if rdmd == 'https://dog.ceo/api/breeds/image/random' else 'Powered by random.dog' if rdmd == 'https://random.dog/woof.json' else 'Powered by some-random-api.ml')
+        if rdmd == 'http://shibe.online/api/shibes?count=1':
+            e.set_image(url=js[0])
+            e.set_footer(text="Powered by shibe.online")
+
+        elif rdmd == 'https://dog.ceo/api/breeds/image/random':
+            e.set_image(url=js['message'])
+            e.set_footer(text="Powered by dog.ceo")
+
+        elif rdmd == 'https://random.dog/woof.json':
+            e.set_image(url=js['url'])
+            e.set_footer(text="Powered by random.dog")
+
+        elif rdmd == 'https://some-random-api.ml/img/dog':
+            e.set_image(url=js['link'])
+            e.set_footer(text="Powered by some-random-api.ml")
+
+        else:
+            await session.close()
+            await ctx.send('Something went wrong, please try again later.')
 
         await session.close()
         await ctx.send(embed=e)
