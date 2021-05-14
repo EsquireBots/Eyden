@@ -6,7 +6,7 @@ from discord.ext import commands
 
 
 bot = commands.AutoShardedBot(
-    command_prefix=commands.when_mentioned_or('!'),
+    command_prefix=commands.when_mentioned_or('e?'),
     intents=discord.Intents.all(),
     max_messages=5000,
     status=discord.Status.online,
