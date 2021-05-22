@@ -11,6 +11,7 @@ from discord.ext import commands
 class general(commands.Cog, name="Generic"):
     def __init__(self, bot):
         self.bot = bot
+        self.help_icon = '<:Discovery:845656527347777548>'
 
     @commands.command()
     @commands.cooldown(1, 2, commands.BucketType.user)
@@ -44,7 +45,7 @@ Created by **{str(Flitz)}**
 Created on **{date(self.bot.user.created_at)}**
 
 Library **discord.py** on version **{discord.__version__}**
-Links: **[fill in desired hyperlinks here]**
+Links: **[support]({links.support}) | [Invite]({links.Invite_admin})**
 
 Commands: **{len([c for c in set(self.bot.walk_commands())])}**
 Guilds: **{len(self.bot.guilds)}**
@@ -78,7 +79,7 @@ Users: **{sum(x.member_count for x in self.bot.guilds)}**
         Flitz = await self.bot.fetch_user(809057677716094997)
 
         e = discord.Embed(color=discord.Color.green())
-        e.description = f"Eyden does not gather any information on it's users. It may only log new guilds joined, traceback errors and cooldowns." \
+        e.description = f"Eyden does not gather any information on it's users. It may only log new guilds joined, traceback errors and cooldowns. " \
                          "This privacy policy will be updated accordingly to any future data we may collect.\n\n" \
                          f"For any questions, you can contact {str(Flitz)} on discord or send an email to joshuaslui0203@gmail.com"
         await ctx.send(embed=e)

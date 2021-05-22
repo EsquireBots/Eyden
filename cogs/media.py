@@ -1,13 +1,18 @@
+import json
 import random
 import aiohttp
 import discord
 
 from discord.ext import commands
+from settings import emotes
+
+import config
 
 
 class media(commands.Cog, name="Media"):
     def __init__(self, bot):
         self.bot = bot
+        self.help_icon = '🔗'
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -38,7 +43,8 @@ class media(commands.Cog, name="Media"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def dog(self, ctx):
         """ Get a random dog """
-        rdmd = random.choice(['http://shibe.online/api/shibes?count=1', 'https://dog.ceo/api/breeds/image/random', 'https://random.dog/woof.json', 'https://some-random-api.ml/img/dog'])
+        rdmd = random.choice(['http://shibe.online/api/shibes?count=1', 'https://dog.ceo/api/breeds/image/random',
+                              'https://random.dog/woof.json', 'https://some-random-api.ml/img/dog'])
         session = aiohttp.ClientSession()
         r = await session.get(rdmd)
         js = await r.json()
@@ -71,7 +77,9 @@ class media(commands.Cog, name="Media"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def cat(self, ctx):
         """ Get a random cat """
-        rdmc = random.choice(['https://thatcopy.pw/catapi/rest/', 'https://aws.random.cat/meow', 'http://shibe.online/api/cats?count=1', 'https://some-random-api.ml/img/cat'])
+        rdmc = random.choice(
+            ['https://thatcopy.pw/catapi/rest/', 'https://aws.random.cat/meow', 'http://shibe.online/api/cats?count=1',
+             'https://some-random-api.ml/img/cat'])
         session = aiohttp.ClientSession()
         r = await session.get(rdmc)
         js = await r.json()
@@ -117,7 +125,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def xkcd(self, ctx, comic: int=None): # Add comic=none
+    async def xkcd(self, ctx, comic: int = None):
         """ Get an xkcd comic """
         if comic is None:
             async with aiohttp.ClientSession() as session:
@@ -130,7 +138,7 @@ class media(commands.Cog, name="Media"):
                     await ctx.send(embed=e)
         else:
             if comic > 2462:
-                 return await ctx.send('There are only 2462 comics.')
+                return await ctx.send('There are only 2462 comics.')
 
             async with aiohttp.ClientSession() as session:
                 async with session.get(f"https://xkcd.com/{comic}/info.0.json") as r:
@@ -141,6 +149,41 @@ class media(commands.Cog, name="Media"):
 
                     await ctx.send(embed=e)
 
+    @commands.command()
+    @commands.dm_only()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def mailcheck(self, ctx, mail):
+        """ Get data about an email """
+        async with aiohttp.ClientSession() as session:
+            async with session.get(f"http://apilayer.net/api/check?access_key={config.mbltoken}&email={mail}") as r:
+                js = await r.json()
+
+        try:
+            e = discord.Embed(color=discord.Color.green())
+            e.set_footer(text="Powered by apilayer.net")
+            e.add_field(name=js['email'],
+                        value=f"""
+**Domain:** {js['domain']}
+**Format:** {js['format_valid']}
+**Mail exchange (record):** {js['mx_found']}
+**SMTP check:** {js['smtp_check']}
+**Catch-all:** {js['catch_all']}
+**Role based:** {js['role']}
+**Disposable:** {js['disposable']}
+**Free:** {js['free']}
+
+**Overall score:** {js['score']}
+""")
+
+            await ctx.send(embed=e)
+        except Exception:
+            try:
+                e = discord.Embed(color=discord.Color.red())
+                e.description = f"Error {js['error']['code']}: {js['error']['type'].replace('_', ' ').capitalize()}\n" \
+                                f"**{js['error']['info']}**"
+                await ctx.send(embed=e)
+            except Exception as e:
+                await ctx.send(f'Error getting data:\n{e}')
 
     @commands.command(brief="Search the urban dictionary")
     @commands.guild_only()
@@ -173,12 +216,6 @@ class media(commands.Cog, name="Media"):
         e.add_field(name="Example",
                     value=example)
         e.set_footer(text=f"{ctx.author} searched {result['word']}")
-
-        #text = _("**Search:** {0}\n**Author:** {1}\n"
-        #         "{2} {3} | {4} {5}\n**Definition:**\n{6}\n"
-        #         "**Example:**\n{7}").format(result['word'], result['author'], self.bot.settings['emojis']['misc']['upvote'],
-        #                                     result['thumbs_up'], self.bot.settings['emojis']['misc']['downvote'], result['thumbs_down'],
-        #                                     definition, example)
         await ctx.send(embed=e)
 
     @commands.command()
@@ -225,9 +262,94 @@ class media(commands.Cog, name="Media"):
                 e.set_footer(text="Made using some-random-api & pokeapi")
                 await ctx.send(embed=e)
         except Exception:
-            return await ctx.send(f"Please provide an **existent** pokemon.\n" \
-                                   "*If the pokemon you sent does exist, the API might be down.*")
+            return await ctx.send(f"Please provide an **existent** pokemon.\n*If the pokemon you sent does exist, the API might be down.*")
 
+    @commands.command(aliases=['activity'])
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def bored(self, ctx):
+        """ Get a random activity """
+        session = aiohttp.ClientSession()
+        r = await session.get("https://boredapi.com/api/activity")
+        js = await r.json()
+
+        e = discord.Embed(color=discord.Color.green())
+        e.add_field(name='type' + js['type'],
+                    value=js['activity'])
+        e.set_footer(text="Powered by boredapi.com")
+        await session.close()
+        await ctx.send(embed=e)
+
+    @commands.command()
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def food(self, ctx, food: str = None):
+        """ Get food images! """
+        try:
+            if food == None:
+
+                session = aiohttp.ClientSession()
+                r = await session.get("https://foodish-api.herokuapp.com/api")
+                js = await r.json()
+
+                e = discord.Embed(color=discord.Color.random())
+                e.set_image(url=js['image'])
+                e.set_footer(text="Powered by foodish-api")
+
+                await session.close()
+                await ctx.send(embed=e)
+
+            else:
+                session = aiohttp.ClientSession()
+                r = await session.get(f"https://foodish-api.herokuapp.com/api/images/{food}")
+                js = await r.json()
+
+                e = discord.Embed(color=discord.Color.random())
+                e.set_image(url=js['image'])
+                e.set_footer(text="Powered by foodish-api")
+
+                await session.close()
+                await ctx.send(embed=e)
+        except Exception:
+            try:
+                await ctx.send(emotes.cross + " " + js['error'])
+                await session.close()
+            except Exception as e:
+                await ctx.send(f'Error getting data:\n{e}')
+                await session.close()
+
+    @commands.command(aliases=["insult"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def evilinsult(self, ctx):
+        """ Get a random insult """
+        session = aiohttp.ClientSession()
+        r = await session.get("https://evilinsult.com/generate_insult.php?type=json")
+        js = await r.json()
+
+        await session.close()
+        await ctx.send(js['insult'])
+
+    @commands.command(aliases=['advise'])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def advice(self, ctx):
+        """ Get random advice """
+        session = aiohttp.ClientSession()
+        resp = await session.get(f"https://api.adviceslip.com/advice")
+        text = await resp.text()
+        js = json.loads(text)
+
+        await session.close()
+        await ctx.send(js['slip']['advice'])
+
+    @commands.command(aliases=['urlshorten', 'shorten'])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def urlshortener(self, ctx, url):
+        """ Shorten a url """
+        session = aiohttp.ClientSession()
+        resp = await session.get(f"https://is.gd/create.php?format=json&url={url}")
+        text = await resp.text()
+        js = json.loads(text)
+
+        await session.close()
+        await ctx.send(js['shorturl'])
 
 def setup(bot):
     bot.add_cog(media(bot))
