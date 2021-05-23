@@ -3,4 +3,4 @@ extensions = ['jishaku',
               'cogs.media',
               'cogs.events.error',
               'cogs.help',
-              'cogs.guilds']
+              'cogs.events.guilds']
