@@ -105,7 +105,7 @@ Users: **{sum(x.member_count for x in self.bot.guilds)}**
         await channel.send(ctx.author.id, embed=se)
 
         e = discord.Embed(color=discord.Color.green())
-        e.description = f"Your suggestion has been sent to the [support server]({links.support} successfully"
+        e.description = f"Your suggestion was sent to the [support server]({links.support}) successfully."
         e.set_footer(text="Join for updates on your suggestion")
         await ctx.send(embed=e)
 
