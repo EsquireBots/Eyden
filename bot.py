@@ -1,6 +1,7 @@
 import discord
 import config
 import traceback
+from settings import cogloader
 
 from discord.ext import commands
 
@@ -14,7 +15,7 @@ bot = commands.AutoShardedBot(
     description=f"Providing my users with plenty of commands to provide information, images and more through APIs."
 )
 
-for extension in config.extensions:
+for extension in cogloader.extensions:
     try:
         bot.load_extension(extension)
         print(f'[EXTENSION] {extension} has loaded successfully.')

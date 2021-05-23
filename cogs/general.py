@@ -46,7 +46,7 @@ Created by **{str(Flitz)}**
 Created on **{date(self.bot.user.created_at)}**
 
 Library **discord.py** on version **{discord.__version__}**
-Links: **[support]({links.support}) | [Invite]({links.Invite_admin})**
+Links: **[support]({links.support}) | [Invite]({links.Invite_admin}) | [Repository]({links.github})**
 
 Commands: **{len([c for c in set(self.bot.walk_commands())])}**
 Guilds: **{len(self.bot.guilds)}**
