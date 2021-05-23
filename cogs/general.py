@@ -28,6 +28,7 @@ class general(commands.Cog, name="Generic"):
                 await ctx.send(f"My ping is **{discord_ms}**")  # You can use :ping_pong: instead of \U0001f3d3
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def about(self, ctx):
         """ About Eyden """
 
@@ -55,6 +56,7 @@ Users: **{sum(x.member_count for x in self.bot.guilds)}**
         await ctx.reply(embed=e)
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def support(self, ctx):
         """ Get support with Eyden! """
         Flitz = await self.bot.fetch_user(809057677716094997)
@@ -62,26 +64,30 @@ Users: **{sum(x.member_count for x in self.bot.guilds)}**
         e = discord.Embed(color=discord.Color.blue())
         e.set_author(name=f"Get help with {self.bot.user} here!", icon_url=self.bot.user.avatar_url)
         e.description = f"[Support server]({links.support})\n" \
-                        f"[Message {str(Flitz)}]({links.Flitzdiscord})"
+                        f"[Message {str(Flitz)}]({links.Flitzdiscord})\n" \
+                        f"Mail joshuaslui0203@gmail.com"
         await ctx.send(embed=e)
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def invite(self, ctx):
         """ Get an invite! """
         e = discord.Embed(color=discord.Color.blue())
         e.set_author(name=f"Invite {self.bot.user} here!", icon_url=self.bot.user.avatar_url)
-        e.description = f"{emotes.discovery} [Admin invite link]({links.Invite_admin})"
+        e.description = f"{emotes.discovery} [Required permissions]({links.Invite_normal})\n" \
+                        f"{emotes.discovery} [Admin invite link]({links.Invite_admin})"
         await ctx.send(embed=e)
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def privacy(self, ctx):
         """ See our privacy policy """
         Flitz = await self.bot.fetch_user(809057677716094997)
 
         e = discord.Embed(color=discord.Color.green())
         e.description = f"Eyden does not gather any information on it's users. It may only log new guilds joined, traceback errors and cooldowns. " \
-                         "This privacy policy will be updated accordingly to any future data we may collect.\n\n" \
-                         f"For any questions, you can contact {str(Flitz)} on discord or send an email to joshuaslui0203@gmail.com"
+                        "This privacy policy will be updated accordingly to any future data we may collect.\n\n" \
+                        f"For any questions, you can contact {str(Flitz)} on discord or send an email to joshuaslui0203@gmail.com"
         await ctx.send(embed=e)
 
 
