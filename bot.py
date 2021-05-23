@@ -9,6 +9,7 @@ from discord.ext import commands
 bot = commands.AutoShardedBot(
     command_prefix=commands.when_mentioned_or('e.'),
     intents=discord.Intents.all(),
+    allowed_mentions=discord.AllowedMentions.none(),
     max_messages=5000,
     status=discord.Status.online,
     activity=discord.Activity(type=discord.ActivityType.playing, name=f'With my maker'),
