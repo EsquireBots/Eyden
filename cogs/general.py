@@ -2,7 +2,7 @@ import discord
 import aiohttp
 import time
 
-from settings import links, emotes
+from settings import links, emotes, channels
 from utils.default import date
 from collections import Counter
 from discord.ext import commands
@@ -89,6 +89,22 @@ Users: **{sum(x.member_count for x in self.bot.guilds)}**
                         "This privacy policy will be updated accordingly to any future data we may collect.\n\n" \
                         f"For any questions, you can contact {str(Flitz)} on discord or send an email to joshuaslui0203@gmail.com"
         await ctx.send(embed=e)
+
+    @commands.command()
+    async def suggest(self, ctx, *, suggestion):
+        """ Send in suggestions """
+        channel = self.bot.get_channel(channels.suggestions)
+
+        if len(suggestion) > 1000:
+            return await ctx.send(f"{emotes.cross} **Please make your suggestion shorter than 2000 characters.**")
+
+        se = discord.Embed(color=discord.Color.dark_orange())
+        se.description = suggestion
+        se.set_author(name=f"Suggestion from {ctx.author}",
+                      icon_url=ctx.author.avatar_url)
+        await channel.send(ctx.author_id, embed=se)
+        await ctx.send(discord.Embed(description=f"Your suggestion has been sent to the [support server]({links.support} successfully", color=discord.Color.green(), footer="Join for updates on your suggestion"))
+
 
 
 def setup(bot):
