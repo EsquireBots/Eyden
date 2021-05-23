@@ -103,7 +103,11 @@ Users: **{sum(x.member_count for x in self.bot.guilds)}**
         se.set_author(name=f"Suggestion from {ctx.author}",
                       icon_url=ctx.author.avatar_url)
         await channel.send(ctx.author.id, embed=se)
-        await ctx.send(discord.Embed(description=f"Your suggestion has been sent to the [support server]({links.support} successfully", color=discord.Color.green(), footer="Join for updates on your suggestion"))
+
+        e = discord.Embed(color=discord.Color.green())
+        e.description = f"Your suggestion has been sent to the [support server]({links.support} successfully"
+        e.set_footer(text="Join for updates on your suggestion")
+        await ctx.send(embed=e)
 
 def setup(bot):
     bot.add_cog(general(bot))
