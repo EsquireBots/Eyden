@@ -81,11 +81,11 @@ class PenguinHelp(commands.HelpCommand):
         """ See bot help """
         ctx = self.context
 
-        Rex = await self.context.bot.fetch_user(839237573595365406)
+        Rex = await self.context.bot.fetch_user(809057677716094997)
 
         support = links.support
         invite = links.Invite_admin
-        prefix = f"`e?`"
+        prefix = f"`e.`"
         s = "Support"
         i = "Bot invite"
         boats = "None"
@@ -132,7 +132,7 @@ class PenguinHelp(commands.HelpCommand):
 
                 cog_emojis = {
                     "<:Discovery:845656527347777548>": 'Generic',
-                    "ℹ": 'HelpCog',
+                    "ℹ": 'Help',
                     "🔗": 'Media',
                     "\U000023f9": 'Stop'
                 }
