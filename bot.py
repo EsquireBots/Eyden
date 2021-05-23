@@ -6,12 +6,12 @@ from discord.ext import commands
 
 
 bot = commands.AutoShardedBot(
-    command_prefix=commands.when_mentioned_or('e?'),
+    command_prefix=commands.when_mentioned_or('e.'),
     intents=discord.Intents.all(),
     max_messages=5000,
     status=discord.Status.online,
     activity=discord.Activity(type=discord.ActivityType.playing, name=f'With my maker'),
-    description=f"My main purpose is unknown."
+    description=f"Providing my users with plenty of commands to provide information, images and more through APIs."
 )
 
 for extension in config.extensions:
