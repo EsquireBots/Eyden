@@ -66,7 +66,7 @@ class PenguinHelp(commands.HelpCommand):
     def __init__(self):
         self.owner_cogs = ['Jishaku']
         self.admin_cogs = ['admin']
-        self.ignore_cogs = ['Errors']
+        self.ignore_cogs = ['Errors', 'Guilds']
         self.help_icon = '🔗'
         super().__init__(command_attrs={
             "cooldown": commands.Cooldown(1, 5, commands.BucketType.member),
