@@ -16,6 +16,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def fox(self, ctx):
         """ Get a random fox """
         rdmf = random.choice(['https://randomfox.ca/floof/', 'https://some-random-api.ml/img/fox'])
@@ -41,6 +42,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def dog(self, ctx):
         """ Get a random dog """
         rdmd = random.choice(['http://shibe.online/api/shibes?count=1', 'https://dog.ceo/api/breeds/image/random',
@@ -75,6 +77,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def cat(self, ctx):
         """ Get a random cat """
         rdmc = random.choice(
@@ -110,6 +113,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command(aliases=['aq', 'animequote'])
     @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def aniquote(self, ctx):
         """ Get a random anime quote """
         session = aiohttp.ClientSession()
@@ -125,6 +129,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def xkcd(self, ctx, comic: int = None):
         """ Get an xkcd comic """
         if comic is None:
@@ -152,6 +157,7 @@ class media(commands.Cog, name="Media"):
     @commands.command()
     @commands.dm_only()
     @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def mailcheck(self, ctx, mail):
         """ Get data about an email """
         async with aiohttp.ClientSession() as session:
@@ -220,6 +226,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def pokemon(self, ctx, pokemon):
         """ Get pokemon info """
         try:
@@ -266,6 +273,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command(aliases=['activity'])
     @commands.cooldown(1, 3, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def bored(self, ctx):
         """ Get a random activity """
         session = aiohttp.ClientSession()
@@ -281,6 +289,7 @@ class media(commands.Cog, name="Media"):
 
     @commands.command()
     @commands.cooldown(1, 3, commands.BucketType.user)
+    @commands.bot_has_permissions(embed_links=True)
     async def food(self, ctx, food: str = None):
         """ Get food images! """
         try:
@@ -350,6 +359,7 @@ class media(commands.Cog, name="Media"):
 
         await session.close()
         await ctx.send(js['shorturl'])
+
 
 def setup(bot):
     bot.add_cog(media(bot))
