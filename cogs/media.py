@@ -371,7 +371,7 @@ class media(commands.Cog, name="Media"):
          
         e = discord.Embed(color=discord.Color.random(), title=f"{js['date']}", description=f"{js['explanation']}")
         e.set_image(url=js['hdurl'])
-        e.set_footer(text=f"{js['copyright']}")
+        e.set_footer(text=js['copyright'])
         
        
         await session.close()
