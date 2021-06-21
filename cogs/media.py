@@ -359,6 +359,14 @@ class media(commands.Cog, name="Media"):
 
         await session.close()
         await ctx.send(js['shorturl'])
+ 
+    @commands.command(aliases=['Apod'])
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def apod(self, ctx):
+        session = aoihttp.ClientSession()
+        resp = await session.get(f"https://api.nasa.gov/planetary/apod?api_key=")
+        
+    
 
 
 def setup(bot):
