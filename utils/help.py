@@ -64,9 +64,9 @@ class CogHelpPages(menus.MenuPages):
 
 class PenguinHelp(commands.HelpCommand):
     def __init__(self):
-        self.owner_cogs = ['Jishaku']
+        self.owner_cogs = ['Jishaku', 'Devishaku']
         self.admin_cogs = ['admin']
-        self.ignore_cogs = ['Errors', 'Guilds']
+        self.ignore_cogs = ['Errors', 'Guilds', 'Devishaku']
         self.help_icon = '🔗'
         super().__init__(command_attrs={
             "cooldown": commands.Cooldown(1, 5, commands.BucketType.member),
