@@ -360,12 +360,22 @@ class media(commands.Cog, name="Media"):
         await session.close()
         await ctx.send(js['shorturl'])
  
-    @commands.command(aliases=['Apod'])
+    @commands.command(aliases=['Apod', 'Astronomy pic'])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def apod(self, ctx):
-        session = aoihttp.ClientSession()
-        resp = await session.get(f"https://api.nasa.gov/planetary/apod?api_key=")
+        session = aiohttp.ClientSession()
+        r = await session.get(f"https://api.nasa.gov/planetary/apod?api_key={config.napi}")
+        js = await r.json()
+        if 'copyright' not in js:
+            js['copyright'] = f"NASA
+         
+        e = discord.Embed(color=discord.Color.random(), title=f"{js['date']}", description=f"{js['explanation']}")
+        e.set_image(url=js['hdurl'])
+        e.set_footer(text=f"{js['copyright']}")
         
+       
+        await session.close()
+        await ctx.send(embed=e)
     
 
 
